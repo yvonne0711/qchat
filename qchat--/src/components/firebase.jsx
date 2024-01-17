@@ -1,8 +1,8 @@
-// firebase.js
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBF4vRuZIOoA-IF3gdfB2Rz0VYs1hHoJA0",
@@ -19,4 +19,18 @@ const analytics = getAnalytics(app);
 const auth = getAuth();
 const db = getFirestore();
 
-export { auth, db, createUserWithEmailAndPassword, collection, addDoc, getDocs };
+// Add authentication providers
+const googleProvider = new GoogleAuthProvider();
+
+export {
+  auth,
+  db,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,  // Make sure this line is present
+  collection,
+  addDoc,
+  getDocs,
+  googleProvider
+};
+
