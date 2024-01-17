@@ -25,7 +25,7 @@ const Registration = () => {
         password
       );
 
-      // Dodaj dane użytkownika do kolekcji Firestore
+      
       await addDoc(collection(db, "users"), {
         uid: userCredential.user.uid,
         displayName: displayName,
@@ -41,27 +41,23 @@ const Registration = () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-
-      // Dodaj dane użytkownika do kolekcji Firestore
       await addDoc(collection(db, "users"), {
         uid: user.uid,
         displayName: user.displayName,
       });
 
-      console.log("Zalogowano przez Google:", user);
+      console.log("register by google:", user);
     } catch (error) {
-      console.error("Błąd podczas logowania przez Google:", error.message);
+      console.error("Error in register Google:", error.message);
     }
   };
-
-  // Initialize AOS after the component is mounted
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
 
   return (
     <div className="registration-container" data-aos="fade-up">
-      <h2>Register with QChat</h2>
+      <h2>Register with Q-Chat</h2>
       <label>Qmail:</label>
       <input
         type="email"
