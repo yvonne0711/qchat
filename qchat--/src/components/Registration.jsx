@@ -62,7 +62,7 @@ const Registration = () => {
   return (
     <div className="registration-container" data-aos="fade-up">
       <h2>Register with QChat</h2>
-      <label>Email:</label>
+      <label>Qmail:</label>
       <input
         type="email"
         value={email}
