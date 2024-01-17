@@ -25,14 +25,14 @@ const Registration = () => {
 
   return (
     <div>
-      <h2>Rejestracja</h2>
+      <h2>Registration</h2>
       <label>Email:</label>
       <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
 
-      <label>Hasło:</label>
+      <label>Password:</label>
       <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
-      <label>Imię i nazwisko:</label>
+      <label>Display Name:</label>
       <input type="text" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
 
       <button onClick={handleRegistration}>Zarejestruj</button>

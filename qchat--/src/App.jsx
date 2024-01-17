@@ -1,6 +1,8 @@
 // App.jsx
 import React from 'react';
 import Registration from './components/Registration';
+import { AuthProvider } from './Context/AuthContext';
+
 
 const App = () => {
   return (
