@@ -1,5 +1,5 @@
-// Registration.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import AOS from 'aos'; // Import AOS
 import {
   auth,
   createUserWithEmailAndPassword,
@@ -9,6 +9,8 @@ import {
   collection,
   addDoc,
 } from "./firebase";
+import "aos/dist/aos.css";
+import "./Registration.css";
 
 const Registration = () => {
   const [email, setEmail] = useState("");
@@ -29,9 +31,9 @@ const Registration = () => {
         displayName: displayName,
       });
 
-      console.log("Użytkownik zarejestrowany pomyślnie:", userCredential.user);
+      console.log("User registered", userCredential.user);
     } catch (error) {
-      console.error("Błąd podczas rejestracji:", error.message);
+      console.error("register error:", error.message);
     }
   };
 
@@ -40,6 +42,7 @@ const Registration = () => {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
 
+      // Dodaj dane użytkownika do kolekcji Firestore
       await addDoc(collection(db, "users"), {
         uid: user.uid,
         displayName: user.displayName,
@@ -51,8 +54,13 @@ const Registration = () => {
     }
   };
 
+  // Initialize AOS after the component is mounted
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
+
   return (
-    <div>
+    <div className="registration-container" data-aos="fade-up">
       <h2>Register with QChat</h2>
       <label>Email:</label>
       <input
