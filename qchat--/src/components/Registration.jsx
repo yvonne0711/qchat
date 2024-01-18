@@ -66,6 +66,13 @@ const Registration = () => {
   }, []);
 
   return (
+
+
+    <div>
+      
+     
+
+
     <div className="registration-container" data-aos="fade-up">
       <h2>Register with Q-Chat</h2>
       <label>Email:</label>
@@ -94,6 +101,7 @@ const Registration = () => {
       <button onClick={handleGoogleSignIn}>Register by Google</button>
 
       {registrationMessage && <p>{registrationMessage}</p>}
+    </div>
     </div>
   );
 };

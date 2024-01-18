@@ -1,18 +1,27 @@
 // App.jsx
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LoginPage from "./components/loginPage";  
-import Registration from "./components/Registration";
 
+import React from 'react';
+import Registration from './components/Registration';
+import { AuthProvider } from './Context/AuthContext';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './components/Login';
+import Chats from './components/Chats';
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LoginPage />} />  
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<Registration />} />
-      </Routes>
+
+      <Router>
+      {/* <AuthProvider> */}
+        <Routes>
+         <Route path="/" element={<LoginPage />} />  
+          <Route path="/registration" element={<Registration/>}></Route>
+          <Route path="/Chats" element={<Chats/>}></Route>
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+      {/* </AuthProvider> */}
     </Router>
+
+   
+
   );
 };
 

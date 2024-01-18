@@ -10,10 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+
+    "@ant-design/icons": "^5.2.6",
+    "animate.css": "^4.1.1",
+
     "@types/react-router-dom": "^5.3.3",
+
     "aos": "^2.3.4",
     "firebase": "^10.7.1",
     "react": "^18.2.0",
+    "react-chat-engine": "^0.1.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.2"
   },
