@@ -1,16 +1,18 @@
 // App.jsx
-import React from 'react';
-import Registration from './components/Registration';
-import { AuthProvider } from './Context/AuthContext';
-
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LoginPage from "./components/loginPage";  
+import Registration from "./components/Registration";
 
 const App = () => {
   return (
-    <div>
-      <h1>Welcome to Q-chat</h1>
-      <Registration />
-      {/* Other components or content */}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />  
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<Registration />} />
+      </Routes>
+    </Router>
   );
 };
 
