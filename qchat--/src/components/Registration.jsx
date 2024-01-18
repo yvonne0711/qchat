@@ -62,16 +62,8 @@ const Registration = () => {
   return (
 
     <div>
-      <h2>Registration</h2>
-      <label>Email:</label>
-      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-
-      <label>Password:</label>
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-
-      <label>Display Name:</label>
-      <input type="text" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
-
+      
+      <h1>Welcome to Qchat</h1>
     <div className="registration-container" data-aos="fade-up">
       <h2>Register with QChat</h2>
       <label>Qmail:</label>
@@ -99,6 +91,7 @@ const Registration = () => {
 
 
       <button onClick={handleGoogleSignIn}>Register by Google</button>
+    </div>
     </div>
   );
 };
