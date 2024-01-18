@@ -45,7 +45,19 @@ useEffect(() => {
         getFile(user.photoUrl)
             .then((avatar) => {
                 formdata.append('avatar', avatar, avatar.name)
+
+                //create user
+                axios.post('https://api.chatengine.io/users',
+                    formdata,
+                    { headers: { "private-key": ""}}
+                )
+                //if user creation was successful
+                .then(() => setLoading(false))
+                .catch((error) => console.log(error))
+
             })
     })
 //dependency array
 }, [user, history]);
+
+if(!user || loading) return 'Loading..';
