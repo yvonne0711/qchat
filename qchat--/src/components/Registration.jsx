@@ -1,3 +1,4 @@
+// Registration.jsx
 import React, { useState, useEffect } from "react";
 import AOS from 'aos'; // Import AOS
 import {
@@ -16,6 +17,7 @@ const Registration = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
+  const [registrationMessage, setRegistrationMessage] = useState(""); // Add new state for registration message
 
   const handleRegistration = async () => {
     try {
@@ -25,15 +27,17 @@ const Registration = () => {
         password
       );
 
-      // Dodaj dane użytkownika do kolekcji Firestore
+      // Add user data to Firestore collection
       await addDoc(collection(db, "users"), {
         uid: userCredential.user.uid,
         displayName: displayName,
       });
 
-      console.log("User registered", userCredential.user);
+      console.log("User registered successfully:", userCredential.user);
+      setRegistrationMessage("Registration successful. Logged in successfully.");
     } catch (error) {
-      console.error("register error:", error.message);
+      console.error("Registration error:", error.message);
+      setRegistrationMessage(`Registration error: ${error.message}`);
     }
   };
 
@@ -42,15 +46,17 @@ const Registration = () => {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
 
-      // Dodaj dane użytkownika do kolekcji Firestore
+      // Add user data to Firestore collection
       await addDoc(collection(db, "users"), {
         uid: user.uid,
         displayName: user.displayName,
       });
 
-      console.log("Zalogowano przez Google:", user);
+      console.log("Logged in with Google:", user);
+      setRegistrationMessage("Logged in with Google. Logged in successfully.");
     } catch (error) {
-      console.error("Błąd podczas logowania przez Google:", error.message);
+      console.error("Google login error:", error.message);
+      setRegistrationMessage(`Google login error: ${error.message}`);
     }
   };
 
@@ -61,12 +67,15 @@ const Registration = () => {
 
   return (
 
+
     <div>
       
-      <h1>Welcome to Qchat</h1>
+     
+
+
     <div className="registration-container" data-aos="fade-up">
-      <h2>Register with QChat</h2>
-      <label>Qmail:</label>
+      <h2>Register with Q-Chat</h2>
+      <label>Email:</label>
       <input
         type="email"
         value={email}
@@ -89,8 +98,9 @@ const Registration = () => {
 
       <button onClick={handleRegistration}>Register</button>
 
-
       <button onClick={handleGoogleSignIn}>Register by Google</button>
+
+      {registrationMessage && <p>{registrationMessage}</p>}
     </div>
     </div>
   );

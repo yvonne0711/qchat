@@ -1,4 +1,5 @@
 // App.jsx
+
 import React from 'react';
 import Registration from './components/Registration';
 import { AuthProvider } from './Context/AuthContext';
@@ -11,14 +12,16 @@ const App = () => {
       <Router>
       {/* <AuthProvider> */}
         <Routes>
-          <Route path="/" Component={Login}/>
+         <Route path="/" element={<LoginPage />} />  
           <Route path="/registration" element={<Registration/>}></Route>
           <Route path="/Chats" element={<Chats/>}></Route>
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       {/* </AuthProvider> */}
     </Router>
 
    
+
   );
 };
 
