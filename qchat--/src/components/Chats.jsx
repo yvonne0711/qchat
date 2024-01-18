@@ -1,10 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import {ChatEngine} from 'react-chat-engine';
-// import firebase from 'firebase/app';
+import 'firebase/app';
 import 'firebase/auth';
 
 import {useAuth} from '../Context/AuthContext';
+import axios from 'axios';
 
 const Chats= () =>{
 

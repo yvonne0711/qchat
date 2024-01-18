@@ -11,14 +11,14 @@ const App = () => {
   return (
 
       <Router>
-      {/* <AuthProvider> */}
+      <AuthProvider>
         <Routes>
          <Route path="/" element={<LoginPage />} />  
           <Route path="/registration" element={<Registration/>}></Route>
           <Route path="/Chats" element={<Chats/>}></Route>
           <Route path="/login" element={<LoginPage />} />
         </Routes>
-      {/* </AuthProvider> */}
+      </AuthProvider>
     </Router>
 
    
