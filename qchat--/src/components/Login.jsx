@@ -15,23 +15,7 @@ return(
        
         <div id="Login_card" className="animate__animated animate__fadeInDown">
         <h2>Welcome To Qchat</h2>
-            {/* <div className="registration-container" data-aos="fade-up">
-
-            <label>Email:</label>
-            <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-
-                <label>Set Your Quassword:</label>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-
-                </div> */}
+           
           <div className="btns_row">
           <div className="login_btn google_btn"
           onClick={() => auth.signInWithRedirect(new Firebase.auth.GoogleOutlined())}>

@@ -5,6 +5,7 @@ import Registration from './components/Registration';
 import { AuthProvider } from './Context/AuthContext';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Login';
+import LoginPage from './components/loginPage';
 import Chats from './components/Chats';
 const App = () => {
   return (

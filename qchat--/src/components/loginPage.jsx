@@ -20,7 +20,7 @@ const LoginPage = () => {
       console.log("User logged in successfully");
 
       // Przenieś do panelu użytkownika
-      navigate("/user-panel");
+      navigate("/chats");
 
       setLoginMessage("Logged in successfully.");
     } catch (error) {
@@ -43,7 +43,7 @@ const LoginPage = () => {
       console.log("Zalogowano przez Google:", user);
 
       // Przenieś do panelu użytkownika
-      navigate("/user-panel");
+      navigate("/chats");
 
       setLoginMessage("Logged in with Google. Logged in successfully.");
     } catch (error) {
