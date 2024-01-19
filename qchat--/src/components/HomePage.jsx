@@ -13,7 +13,7 @@ const HomePage = () => {
 
   return (
     <div className="home-container" data-aos="fade-up">
-      <h2>Welcome to Q-Chat</h2>
+      <h1>Welcome to Q-Chat</h1>
       <p>
         Q-Chat is your go-to platform for seamless communication. Join us now to
         connect with others!
@@ -22,7 +22,7 @@ const HomePage = () => {
         <Link to="/login">
           <button>Login</button>
         </Link>
-        <Link to="/register">
+        <Link to="/Registration">
           <button>Register</button>
         </Link>
       </div>
