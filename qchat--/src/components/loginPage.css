@@ -7,11 +7,11 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    opacity: 0; /* Domyślnie ustaw na niewidoczne */
+    opacity: 0; 
   }
   
   .login-container[data-aos="fade-up"] {
-    opacity: 1; /* Ustaw widoczność na 1 po załadowaniu z efektem AOS */
+    opacity: 1; 
   }
   
   .login-container h2 {

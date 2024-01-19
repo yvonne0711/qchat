@@ -2,8 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { googleProvider, auth, db, collection, addDoc } from "./firebase";
-import { useNavigate } from "react-router-dom"; // Zaktualizowany import
-
+import { useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "./LoginPage.css";
@@ -12,14 +11,14 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginMessage, setLoginMessage] = useState("");
-  const navigate = useNavigate(); // Zaktualizowany hook
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       console.log("User logged in successfully");
 
-      // Przenieś do panelu użytkownika
+      // Przenieś do panelu użytkownika po zalogowaniu
       navigate("/chats");
 
       setLoginMessage("Logged in successfully.");
@@ -42,7 +41,7 @@ const LoginPage = () => {
 
       console.log("Zalogowano przez Google:", user);
 
-      // Przenieś do panelu użytkownika
+      // Przenieś do panelu użytkownika po zalogowaniu
       navigate("/chats");
 
       setLoginMessage("Logged in with Google. Logged in successfully.");

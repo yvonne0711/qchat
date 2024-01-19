@@ -1,6 +1,6 @@
 // Registration.jsx
 import React, { useState, useEffect } from "react";
-import AOS from 'aos'; // Import AOS
+import AOS from 'aos';
 import {
   auth,
   createUserWithEmailAndPassword,
@@ -10,6 +10,7 @@ import {
   collection,
   addDoc,
 } from "./firebase";
+import axios from 'axios'; // Dodaj import axios
 import "aos/dist/aos.css";
 import "./Registration.css";
 
@@ -17,21 +18,38 @@ const Registration = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
-  const [registrationMessage, setRegistrationMessage] = useState(""); // Add new state for registration message
+  const [registrationMessage, setRegistrationMessage] = useState("");
 
   const handleRegistration = async () => {
     try {
+      // Rejestracja użytkownika w Firebase
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
 
-      // Add user data to Firestore collection
+      // Dodanie danych użytkownika do kolekcji Firestore
       await addDoc(collection(db, "users"), {
         uid: userCredential.user.uid,
         displayName: displayName,
       });
+
+      // Dodanie użytkownika do Chat Engine
+      await axios.post(
+        'https://api.chatengine.io/users/',
+        {
+          username: email, // Ustawienie username na email (możesz dostosować to według własnych potrzeb)
+          secret: userCredential.user.uid,
+          email: email,
+        },
+        {
+          headers: {
+            'private-key': '4ee6af7f-2fd7-4c2c-be5e-f569ac48a478',
+            'project-id': '5f62edf9-dd50-4c2e-b35a-1dfee5ffcd44',
+          },
+        }
+      );
 
       console.log("User registered successfully:", userCredential.user);
       setRegistrationMessage("Registration successful. Logged in successfully.");
@@ -46,11 +64,27 @@ const Registration = () => {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
 
-      // Add user data to Firestore collection
+      // Dodanie danych użytkownika do kolekcji Firestore
       await addDoc(collection(db, "users"), {
         uid: user.uid,
         displayName: user.displayName,
       });
+
+      // Dodanie użytkownika do Chat Engine
+      await axios.post(
+        'https://api.chatengine.io/users/',
+        {
+          username: user.email,
+          secret: user.uid,
+          email: user.email,
+        },
+        {
+          headers: {
+            'private-key': '4ee6af7f-2fd7-4c2c-be5e-f569ac48a478',
+            'project-id': '5f62edf9-dd50-4c2e-b35a-1dfee5ffcd44',
+          },
+        }
+      );
 
       console.log("Logged in with Google:", user);
       setRegistrationMessage("Logged in with Google. Logged in successfully.");
@@ -60,48 +94,41 @@ const Registration = () => {
     }
   };
 
-  // Initialize AOS after the component is mounted
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
 
   return (
-
-
     <div>
-      
-     
+      <div className="registration-container" data-aos="fade-up">
+        <h2>Register with Q-Chat</h2>
+        <label>Email:</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
+        <label>Set Your Quassword:</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-    <div className="registration-container" data-aos="fade-up">
-      <h2>Register with Q-Chat</h2>
-      <label>Email:</label>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+        <label>Qickname:</label>
+        <input
+          type="text"
+          value={displayName}
+          onChange={(e) => setDisplayName(e.target.value)}
+        />
 
-      <label>Set Your Quassword:</label>
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+        <button onClick={handleRegistration}>Register</button>
 
-      <label>Qickname:</label>
-      <input
-        type="text"
-        value={displayName}
-        onChange={(e) => setDisplayName(e.target.value)}
-      />
+        <button onClick={handleGoogleSignIn}>Register by Google</button>
 
-      <button onClick={handleRegistration}>Register</button>
-
-      <button onClick={handleGoogleSignIn}>Register by Google</button>
-
-      {registrationMessage && <p>{registrationMessage}</p>}
-    </div>
+        {registrationMessage && <p>{registrationMessage}</p>}
+      </div>
     </div>
   );
 };
