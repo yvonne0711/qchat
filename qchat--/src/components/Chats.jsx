@@ -1,17 +1,22 @@
 // Chats.jsx
-import React, { useRef, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Corrected import
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChatEngine } from 'react-chat-engine';
 import { useAuth } from '../Context/AuthContext';
 import axios from 'axios';
 
 const Chats = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
 
   const handleLogout = async () => {
-    // Add your logout logic here
+    try {
+      
+      navigate('/');
+    } catch (error) {
+      console.error('Błąd podczas wylogowywania:', error);
+    }
   };
 
   const getFile = async (url) => {
@@ -24,7 +29,7 @@ const Chats = () => {
   useEffect(() => {
     const setupChatEngine = async () => {
       if (!user) {
-        navigate('/'); 
+        navigate('/');
         return;
       }
 
@@ -66,7 +71,7 @@ const Chats = () => {
     };
 
     setupChatEngine();
-  }, [user, navigate]); 
+  }, [user, navigate]);
 
   if (!user || loading) return 'Loading...';
 
@@ -83,6 +88,7 @@ const Chats = () => {
         projectID="5f62edf9-dd50-4c2e-b35a-1dfee5ffcd44"
         userName={user.email}
         userSecret={user.uid}
+        offset={-1}
       />
     </div>
   );
