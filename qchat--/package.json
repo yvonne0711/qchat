@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@types/react-router-dom": "^5.3.3",
     "animate.css": "^4.1.1",
     "aos": "^2.3.4",
@@ -20,6 +23,7 @@
     "react": "^18.2.0",
     "react-chat-engine": "^1.11.28",
     "react-dom": "^18.2.0",
+    "react-quill": "^2.0.0",
     "react-router-dom": "^6.21.2"
   },
   "devDependencies": {
@@ -30,6 +34,8 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
-    "vite": "^5.0.8"
+    "react-refresh": "^0.14.0",
+    "vite": "^5.0.8",
+    "webpack-plugin": "^1.0.5"
   }
 }
