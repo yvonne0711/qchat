@@ -1,9 +1,12 @@
-// Chats.jsx
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChatEngine, IsTyping, ChatList, NewMessageForm, ChatFeed } from 'react-chat-engine';
 import { useAuth } from '../Context/AuthContext';
 import axios from 'axios';
+
+
+import logo from '../assets/logo.png';
 
 const Chats = () => {
   const navigate = useNavigate();
@@ -21,7 +24,7 @@ const Chats = () => {
       }
       navigate('/');
     } catch (error) {
-      console.error('Błąd podczas wylogowywania:', error);
+      console.error('Logout Error:', error);
     }
   };
 
@@ -182,7 +185,10 @@ const Chats = () => {
   return (
     <div className="Chat_page">
       <div className="Chat_Navbar">
-        <div className="Logo_tab">Qchat</div>
+        <div className="Logo_tab">
+          <img src={logo} alt="Logo" style={{ height: '40px', marginRight: '8px' }} />
+          Chat
+        </div>
         <div onClick={handleLogout} className="logout_tab">
           Logout
         </div>
