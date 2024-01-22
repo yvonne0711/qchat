@@ -73,14 +73,26 @@ button:active {
 @media (max-width: 768px) {
   .home-container {
     flex-direction: column;
+    padding: 10px; 
+  }
+
+  .logo {
+    margin-right: 0; 
+    margin-bottom: 20px; 
   }
 
   h1 {
     font-size: 2rem;
+    margin-bottom: 10px; 
   }
 
   p {
     font-size: 1rem;
+    margin-bottom: 20px; 
+  }
+
+  .lady {
+    margin-left: 0; 
   }
 
   button {

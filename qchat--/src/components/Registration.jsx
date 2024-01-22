@@ -1,4 +1,4 @@
-// Registration.jsx
+
 import React, { useState, useEffect } from "react";
 import AOS from 'aos';
 import {
@@ -10,9 +10,10 @@ import {
   collection,
   addDoc,
 } from "./firebase";
-import axios from 'axios'; // Dodaj import axios
+import axios from 'axios'; 
 import "aos/dist/aos.css";
 import "./Registration.css";
+import logoImage from "../assets/logo.png";
 
 const Registration = () => {
   const [email, setEmail] = useState("");
@@ -22,24 +23,22 @@ const Registration = () => {
 
   const handleRegistration = async () => {
     try {
-      // Rejestracja użytkownika w Firebase
+      
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
 
-      // Dodanie danych użytkownika do kolekcji Firestore
+      
       await addDoc(collection(db, "users"), {
         uid: userCredential.user.uid,
         displayName: displayName,
       });
-
-      // Dodanie użytkownika do Chat Engine
       await axios.post(
         'https://api.chatengine.io/users/',
         {
-          username: email, // Ustawienie username na email (możesz dostosować to według własnych potrzeb)
+          username: email, 
           secret: userCredential.user.uid,
           email: email,
         },
@@ -64,13 +63,13 @@ const Registration = () => {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
 
-      // Dodanie danych użytkownika do kolekcji Firestore
+      
       await addDoc(collection(db, "users"), {
         uid: user.uid,
         displayName: user.displayName,
       });
 
-      // Dodanie użytkownika do Chat Engine
+      
       await axios.post(
         'https://api.chatengine.io/users/',
         {
@@ -101,7 +100,7 @@ const Registration = () => {
   return (
     <div>
       <div className="registration-container" data-aos="fade-up">
-        <h2>Register with Q-Chat</h2>
+      <h2>Register to <span className="logo-text"><img src={logoImage} alt="Logo" />- Chat</span></h2>
         <label>Email:</label>
         <input
           type="email"
