@@ -1,67 +1,77 @@
 /* LoginPage.css */
 .login-container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    opacity: 0; 
-  }
-  
-  .login-container[data-aos="fade-up"] {
-    opacity: 1; 
-  }
-  
-  .login-container h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .login-container label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 14px;
-    color: #555;
-  }
-  
-  .login-container input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  
-  .login-container button {
-    width: 100%;
-    padding: 12px;
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .login-container button:hover {
-    background-color: #45a049;
-  }
-  
-  .login-container button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  .login-container button + button {
-    margin-top: 8px;
-    background-color: #4285f4;
-  }
-  
-  .login-container button + button:hover {
-    background-color: #357ae8;
-  }
-  
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  opacity: 0;
+}
+
+.login-container[data-aos="fade-up"] {
+  opacity: 1;
+}
+
+.login-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.login-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #555;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.login-container button:hover {
+  background-color: #45a049;
+}
+
+.login-container button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.logo-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-text img {
+  height: 60px;
+  margin-right: 8px;
+}
+
+.login-container button + button {
+  margin-top: 8px;
+  background-color: #4285f4;
+}
+
+.login-container button + button:hover {
+  background-color: #357ae8;
+}

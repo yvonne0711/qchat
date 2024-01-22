@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "./LoginPage.css";
+import logoImage from "../assets/logo.png"; 
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -18,7 +19,7 @@ const LoginPage = () => {
       await signInWithEmailAndPassword(auth, email, password);
       console.log("User logged in successfully");
 
-      // Przenieś do panelu użytkownika po zalogowaniu
+      
       navigate("/chats");
 
       setLoginMessage("Logged in successfully.");
@@ -33,15 +34,15 @@ const LoginPage = () => {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
 
-      // Dodaj dane użytkownika do kolekcji Firestore
+      
       await addDoc(collection(db, "users"), {
         uid: user.uid,
         displayName: user.displayName,
       });
 
-      console.log("Zalogowano przez Google:", user);
+      console.log("logged by Google:", user);
 
-      // Przenieś do panelu użytkownika po zalogowaniu
+     
       navigate("/chats");
 
       setLoginMessage("Logged in with Google. Logged in successfully.");
@@ -57,7 +58,7 @@ const LoginPage = () => {
 
   return (
     <div className="login-container" data-aos="fade-up">
-      <h2>Login to Q-Chat</h2>
+      <h2>Login to <span className="logo-text"><img src={logoImage} alt="Logo" />- Chat</span></h2>
       <label>Email:</label>
       <input
         type="email"
