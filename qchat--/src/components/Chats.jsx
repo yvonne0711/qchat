@@ -1,18 +1,24 @@
 // Chats.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChatEngine } from 'react-chat-engine';
+import { ChatEngine, IsTyping, ChatList, NewMessageForm, ChatFeed } from 'react-chat-engine';
 import { useAuth } from '../Context/AuthContext';
 import axios from 'axios';
 
 const Chats = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const [loading, setLoading] = useState(true);
+  const [chatInitialized, setChatInitialized] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
 
   const handleLogout = async () => {
     try {
-      
+      if (user && user.signOut) {
+        await user.signOut();
+      } else {
+        console.error('Error: signOut function is not available.');
+      }
       navigate('/');
     } catch (error) {
       console.error('Błąd podczas wylogowywania:', error);
@@ -26,6 +32,100 @@ const Chats = () => {
     return new File([data], 'userPhoto.jpg', { type: 'image/jpeg' });
   };
 
+  const connectToChatEngineWebSocket = () => {
+    const socket = new WebSocket(
+      `wss://api.chatengine.io/person/?publicKey=5f62edf9-dd50-4c2e-b35a-1dfee5ffcd44&username=${user.email}&secret=${user.uid}`
+    );
+
+    socket.onopen = (event) => console.log('WebSocket connected:', event);
+    socket.onclose = (event) => console.log('WebSocket closed:', event);
+    socket.onmessage = (event) => {
+      console.log('WebSocket message:', event);
+      const messageData = JSON.parse(event.data);
+      if (messageData.event === 'typing_indicator') {
+        setIsTyping(messageData.data.is_typing);
+      }
+    };
+    socket.onerror = (error) => console.error('WebSocket error:', error);
+  };
+
+  const refreshChat = () => {
+    console.log('Chat refreshed');
+  };
+
+  const startTyping = async (chatID) => {
+    const myHeaders = new Headers();
+    myHeaders.append('Project-ID', '5f62edf9-dd50-4c2e-b35a-1dfee5ffcd44');
+    myHeaders.append('User-Name', user.email);
+    myHeaders.append('User-Secret', user.uid);
+
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      redirect: 'follow',
+    };
+
+    try {
+      await fetch(`https://api.chatengine.io/chats/${chatID}/typing/`, requestOptions);
+    } catch (error) {
+      console.log('Error while sending typing indicator:', error);
+    }
+  };
+
+  const createChat = async () => {
+    const myHeaders = new Headers();
+    myHeaders.append('Project-ID', '5f62edf9-dd50-4c2e-b35a-1dfee5ffcd44');
+    myHeaders.append('User-Name', user.email);
+    myHeaders.append('User-Secret', user.uid);
+
+    const raw = JSON.stringify({
+      title: 'Surprise Party',
+      is_direct_chat: false,
+    });
+
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+    };
+
+    try {
+      const response = await fetch('https://api.chatengine.io/chats/', requestOptions);
+      const result = await response.json();
+      console.log(result);
+      await addChatMember(result.id, 'bob_baker');
+    } catch (error) {
+      console.log('Error while creating a chat:', error);
+    }
+  };
+
+  const addChatMember = async (chatID, username) => {
+    const myHeaders = new Headers();
+    myHeaders.append('Project-ID', '5f62edf9-dd50-4c2e-b35a-1dfee5ffcd44');
+    myHeaders.append('User-Name', user.email);
+    myHeaders.append('User-Secret', user.uid);
+
+    const raw = JSON.stringify({
+      username,
+    });
+
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+    };
+
+    try {
+      const response = await fetch(`https://api.chatengine.io/chats/${chatID}/people/`, requestOptions);
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.log('Error while adding a chat member:', error);
+    }
+  };
+
   useEffect(() => {
     const setupChatEngine = async () => {
       if (!user) {
@@ -34,15 +134,17 @@ const Chats = () => {
       }
 
       try {
-        await axios.get('https://api.chatengine.io/users/me', {
+        await axios.get('https://api.chatengine.io/users/me/', {
           headers: {
-            'project-id': '5f62edf9-dd50-4c2e-b35a-1dfee5ffcd44',
+            'Project-ID': '5f62edf9-dd50-4c2e-b35a-1dfee5ffcd44',
             'User-Name': user.email,
             'User-Secret': user.uid,
           },
         });
 
         setLoading(false);
+        setChatInitialized(true);
+        connectToChatEngineWebSocket();
       } catch (error) {
         let formData = new FormData();
         formData.append('email', user.email);
@@ -54,7 +156,7 @@ const Chats = () => {
           formData.append('avatar', avatar, avatar.name);
 
           await axios.post(
-            'https://api.chatengine.io/users',
+            'https://api.chatengine.io/users/',
             formData,
             {
               headers: {
@@ -64,6 +166,8 @@ const Chats = () => {
           );
 
           setLoading(false);
+          setChatInitialized(true);
+          connectToChatEngineWebSocket();
         } catch (error) {
           console.log(error);
         }
@@ -73,7 +177,7 @@ const Chats = () => {
     setupChatEngine();
   }, [user, navigate]);
 
-  if (!user || loading) return 'Loading...';
+  if (!user || loading || !chatInitialized) return 'Loading...';
 
   return (
     <div className="Chat_page">
@@ -82,14 +186,24 @@ const Chats = () => {
         <div onClick={handleLogout} className="logout_tab">
           Logout
         </div>
+        <div onClick={createChat} className="create_chat_tab">
+          Create Chat
+        </div>
       </div>
       <ChatEngine
         height="calc(100vh - 66px)"
         projectID="5f62edf9-dd50-4c2e-b35a-1dfee5ffcd44"
         userName={user.email}
         userSecret={user.uid}
-        offset={-1}
-      />
+        onNewMessage={() => refreshChat()}
+        onTyping={(data) => setIsTyping(data.is_typing)}
+        renderChatFeed={(chatAppProps) => <ChatFeed {...chatAppProps} />}
+        renderChatList={(chatAppProps) => <ChatList {...chatAppProps} />}
+        renderNewMessageForm={(chatAppProps) => <NewMessageForm {...chatAppProps} />}
+      >
+        <IsTyping>{isTyping && 'Someone is typing...'}</IsTyping>
+        {/* Other chat components */}
+      </ChatEngine>
     </div>
   );
 };
