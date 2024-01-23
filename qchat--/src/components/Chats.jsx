@@ -1,19 +1,20 @@
-
+// Chats.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChatEngine, IsTyping, ChatList, NewMessageForm, ChatFeed } from 'react-chat-engine';
 import { useAuth } from '../Context/AuthContext';
 import axios from 'axios';
 
-
 import logo from '../assets/logo.png';
 
 const Chats = () => {
   const navigate = useNavigate();
-  const { user, signOut } = useAuth();
+  const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [chatInitialized, setChatInitialized] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [chats, setChats] = useState([]);
 
   const handleLogout = async () => {
     try {
@@ -54,24 +55,24 @@ const Chats = () => {
 
   const refreshChat = () => {
     console.log('Chat refreshed');
+    // Pobierz nowe wiadomości i zaktualizuj stan messages
+    // Przykład użycia: axios.get('https://api.chatengine.io/chats/:chatID/messages/')
+    // Po otrzymaniu nowych wiadomości, aktualizujemy lokalny stan
+    // Przykład użycia: setMessages([...messages, ...noweWiadomosci]);
   };
 
-  const startTyping = async (chatID) => {
-    const myHeaders = new Headers();
-    myHeaders.append('Project-ID', '5f62edf9-dd50-4c2e-b35a-1dfee5ffcd44');
-    myHeaders.append('User-Name', user.email);
-    myHeaders.append('User-Secret', user.uid);
-
-    const requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      redirect: 'follow',
-    };
-
+  const fetchChats = async () => {
     try {
-      await fetch(`https://api.chatengine.io/chats/${chatID}/typing/`, requestOptions);
+      const response = await axios.get('https://api.chatengine.io/chats/', {
+        headers: {
+          'Project-ID': '5f62edf9-dd50-4c2e-b35a-1dfee5ffcd44',
+          'User-Name': user.email,
+          'User-Secret': user.uid,
+        },
+      });
+      setChats(response.data);
     } catch (error) {
-      console.log('Error while sending typing indicator:', error);
+      console.log('Error while fetching chats:', error);
     }
   };
 
@@ -98,6 +99,9 @@ const Chats = () => {
       const result = await response.json();
       console.log(result);
       await addChatMember(result.id, 'bob_baker');
+
+      // Po utworzeniu nowego czatu, pobierz zaktualizowaną listę czatów
+      fetchChats();
     } catch (error) {
       console.log('Error while creating a chat:', error);
     }
@@ -180,6 +184,16 @@ const Chats = () => {
     setupChatEngine();
   }, [user, navigate]);
 
+  useEffect(() => {
+    // Sprawdzamy, czy automatyczne odświeżanie jest już włączone
+    if (chatInitialized) {
+      // Tutaj możesz umieścić kod do pobrania nowych wiadomości
+      // Przykład użycia: axios.get('https://api.chatengine.io/chats/:chatID/messages/')
+      // Po otrzymaniu nowych wiadomości, aktualizujemy lokalny stan
+      // Przykład użycia: setMessages([...messages, ...noweWiadomosci]);
+    }
+  }, [chatInitialized]);
+
   if (!user || loading || !chatInitialized) return 'Loading...';
 
   return (
@@ -204,11 +218,10 @@ const Chats = () => {
         onNewMessage={() => refreshChat()}
         onTyping={(data) => setIsTyping(data.is_typing)}
         renderChatFeed={(chatAppProps) => <ChatFeed {...chatAppProps} />}
-        renderChatList={(chatAppProps) => <ChatList {...chatAppProps} />}
+        renderChatList={(chatAppProps) => <ChatList {...chatAppProps} chats={chats} />}
         renderNewMessageForm={(chatAppProps) => <NewMessageForm {...chatAppProps} />}
       >
         <IsTyping>{isTyping && 'Someone is typing...'}</IsTyping>
-        {/* Other chat components */}
       </ChatEngine>
     </div>
   );

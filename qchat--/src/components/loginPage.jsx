@@ -18,10 +18,7 @@ const LoginPage = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       console.log("User logged in successfully");
-
-      
       navigate("/chats");
-
       setLoginMessage("Logged in successfully.");
     } catch (error) {
       console.error("Login error:", error.message);
@@ -33,18 +30,14 @@ const LoginPage = () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-
       
       await addDoc(collection(db, "users"), {
         uid: user.uid,
         displayName: user.displayName,
       });
 
-      console.log("logged by Google:", user);
-
-     
+      console.log("Logged in by Google:", user);
       navigate("/chats");
-
       setLoginMessage("Logged in with Google. Logged in successfully.");
     } catch (error) {
       console.error("Google login error:", error.message);
@@ -59,25 +52,25 @@ const LoginPage = () => {
   return (
     <div className="login-container" data-aos="fade-up">
       <h2>Login to <span className="logo-text"><img src={logoImage} alt="Logo" />- Chat</span></h2>
-      <label>Email:</label>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+      <div className="form-container">
+        <label>Email:</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-      <label>Your Quassword:</label>
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+        <label>Your Qassword:</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-      <button onClick={handleLogin}>Login</button>
-
-      <button onClick={handleGoogleSignIn}>Login with Google</button>
-
-      {loginMessage && <p>{loginMessage}</p>}
+        <button onClick={handleLogin}>Login</button>
+        <button onClick={handleGoogleSignIn}>Login with Google</button>
+      </div>
+      {loginMessage && <p className="login-message">{loginMessage}</p>}
     </div>
   );
 };
