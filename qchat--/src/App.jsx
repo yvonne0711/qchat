@@ -3,7 +3,7 @@ import React from 'react';
 import Registration from './components/Registration';
 import { AuthProvider } from './Context/AuthContext';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoginPage from './components/LoginPage';
+import LoginPage from './components/loginPage';
 import Chats from './components/Chats';
 import HomePage from './components/HomePage'; // Import HomePage component
 

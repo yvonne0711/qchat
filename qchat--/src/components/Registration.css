@@ -1,7 +1,7 @@
 body {
   background-color: #f4f4f4;
   font-family: 'Arial', sans-serif;
-  margin: 10px;
+  margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
@@ -16,7 +16,7 @@ h1 {
   opacity: 1;
   transform: scale(2.5);
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-  margin-bottom: 10%;
+  margin-bottom: 5%;
 }
 
 .registration-container {
@@ -31,10 +31,7 @@ h1 {
   text-align: center;
 }
 
-.registration-container:hover {
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  margin: 10%; 
-}
+
 
 .registration-container h2 {
   text-align: center;
@@ -48,39 +45,36 @@ h1 {
 }
 
 .registration-container input {
-  width: 80%; 
+  width: calc(90% - 20px); 
   padding: 15px;
-  margin: 10px ; 
+  margin: 10px;
   border: 1px solid #11cb23;
   border-radius: 5px;
   transition: border-color 0.3s ease-in-out;
 }
 
 .registration-container input:focus {
-  border-color: #4caf50;
-  margin: 10px;
+  border-color: #4c7caf;
 }
 
 .registration-container button {
-  background-color: #724caf;
+  background-color: #3dd276;
   color: #fff;
   padding: 15px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 100%;
+  width: calc(100% - 20px);
   margin: 10px;
   transition: background-color 0.3s ease-in-out;
 }
 
 .registration-container button:hover {
-  background-color: #45a049;
-  margin: 10px;
+  background-color: #456ca0;
 }
 
 .registration-container button:active {
   background-color: #3e8746;
-  margin: 10px;
 }
 
 @media (max-width: 768px) {
