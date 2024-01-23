@@ -1,18 +1,24 @@
+// AuthContext.jsx
 import React, { useContext, useState, useEffect } from "react";
-import PropTypes from 'prop-types';  // Dodane: Importujemy PropTypes
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../components/firebase';
 
 const AuthContext = React.createContext();
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
-
     const navigate = useNavigate();
+
+    const signOut = async () => {
+        try {
+            await auth.signOut();
+        } catch (error) {
+            console.error('Sign out error:', error);
+        }
+    };
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -26,15 +32,11 @@ export const AuthProvider = ({ children }) => {
         return () => unsubscribe();
     }, [navigate]);
 
-    const value = { user };
+    const value = { user, signOut };
 
     return (
         <AuthContext.Provider value={value}>
             {!loading && children}
         </AuthContext.Provider>
     );
-}
-
-AuthProvider.propTypes = {
-    children: PropTypes.node.isRequired,  
 };

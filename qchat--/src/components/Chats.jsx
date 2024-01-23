@@ -13,13 +13,13 @@ const Chats = () => {
   const [loading, setLoading] = useState(true);
   const [chatInitialized, setChatInitialized] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
-  const [socket, setSocket] = useState(null); 
+  const [socket, setSocket] = useState(null);
 
   const handleLogout = async () => {
     try {
       if (user && signOut) {
         await signOut();
-        disconnectChatEngineWebSocket(); 
+        disconnectChatEngineWebSocket();
       } else {
         console.error('Error: signOut function is not available or user object is null.');
       }
@@ -30,7 +30,6 @@ const Chats = () => {
   };
 
   const disconnectChatEngineWebSocket = () => {
-    
     if (socket && socket.readyState === WebSocket.OPEN) {
       socket.close();
     }
@@ -59,7 +58,7 @@ const Chats = () => {
     };
     newSocket.onerror = (error) => console.error('WebSocket error:', error);
 
-    setSocket(newSocket); 
+    setSocket(newSocket);
   };
 
   const refreshChat = () => {
@@ -81,7 +80,7 @@ const Chats = () => {
     try {
       await fetch(`https://api.chatengine.io/chats/${chatID}/typing/`, requestOptions);
     } catch (error) {
-      console.log('Error while sending typing indicator:', error);
+      console.error('Error while sending typing indicator:', error);
     }
   };
 
@@ -109,7 +108,7 @@ const Chats = () => {
       console.log(result);
       await addChatMember(result.id, 'bob_baker');
     } catch (error) {
-      console.log('Error while creating a chat:', error);
+      console.error('Error while creating a chat:', error);
     }
   };
 
@@ -135,7 +134,7 @@ const Chats = () => {
       const result = await response.json();
       console.log(result);
     } catch (error) {
-      console.log('Error while adding a chat member:', error);
+      console.error('Error while adding a chat member:', error);
     }
   };
 
@@ -159,6 +158,8 @@ const Chats = () => {
         setChatInitialized(true);
         connectToChatEngineWebSocket();
       } catch (error) {
+        console.error('Error while setting up Chat Engine:', error);
+
         let formData = new FormData();
         formData.append('email', user.email);
         formData.append('username', user.email);
@@ -182,14 +183,13 @@ const Chats = () => {
           setChatInitialized(true);
           connectToChatEngineWebSocket();
         } catch (error) {
-          console.log(error);
+          console.error('Error while creating a user:', error);
         }
       }
     }
 
     setupChatEngine();
 
-    
     return () => {
       disconnectChatEngineWebSocket();
     };
@@ -220,7 +220,6 @@ const Chats = () => {
         renderNewMessageForm={(chatAppProps) => <NewMessageForm {...chatAppProps} />}
       >
         <IsTyping>{isTyping && 'Someone is typing...'}</IsTyping>
-        
       </ChatEngine>
     </div>
   );

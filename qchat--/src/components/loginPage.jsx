@@ -1,4 +1,5 @@
-// LoginPage.jsx
+
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from "react";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { googleProvider, auth, db, collection, addDoc } from "./firebase";
