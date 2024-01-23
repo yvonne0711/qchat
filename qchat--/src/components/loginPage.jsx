@@ -62,14 +62,14 @@ const LoginPage = () => {
         </span>
       </h2>
       <div className="form-container">
-        <label>Email:</label>
+        <label>Qemail:</label>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <label>Your Password:</label>
+        <label>Your Qassword:</label>
         <input
           type="password"
           value={password}
