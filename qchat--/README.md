@@ -71,5 +71,10 @@ This project is available under the [MIT License](LICENSE).
 
 ## Live Demo
 
+## Contributors
+
+- [@bakomans](https://github.com/bakomans)
+- [@yvonne0711](https://github.com/yvonne0711)
+- [@SuhaimKhalid](https://github.com/SuhaimKhalid)
 
 
