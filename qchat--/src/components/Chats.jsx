@@ -140,7 +140,7 @@ const Chats = () => {
   };
 
   useEffect(() => {
-    const setupChatEngine = async () => {
+    async function setupChatEngine() {
       if (!user) {
         navigate('/');
         return;
@@ -185,7 +185,7 @@ const Chats = () => {
           console.log(error);
         }
       }
-    };
+    }
 
     setupChatEngine();
 
