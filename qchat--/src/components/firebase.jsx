@@ -19,7 +19,7 @@ const analytics = getAnalytics(app);
 const auth = getAuth();
 const db = getFirestore();
 
-// Add authentication providers
+
 const googleProvider = new GoogleAuthProvider();
 
 export {
@@ -27,7 +27,7 @@ export {
   db,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signInWithPopup,  // Make sure this line is present
+  signInWithPopup,  
   collection,
   addDoc,
   getDocs,
