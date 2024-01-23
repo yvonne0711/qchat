@@ -200,9 +200,9 @@ const Chats = () => {
   return (
     <div className="Chat_page">
       <div className="Chat_Navbar">
-        <div className="Logo_tab">
-          <img src={logo} alt="Logo" style={{ height: '40px', marginRight: '8px' }} />
-          Chat
+        <div className="Logo_tab">Welcome to 
+          <img src={logo} alt="Logo" style={{ marginRight: '8px' }} />
+           - CHAT
         </div>
         <div onClick={handleLogout} className="logout_tab">
           Logout
