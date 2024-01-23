@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { googleProvider, auth, db, collection, addDoc } from "./firebase";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "./LoginPage.css";
@@ -49,17 +49,20 @@ const LoginPage = () => {
     navigate("/registration");
   };
 
+  const navigateToHome = () => {
+    navigate("/");
+  };
+
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
 
   return (
     <div className="login-container" data-aos="fade-up">
-      <h2>
-        Login to{" "}
-        <span className="logo-text">
-          <img src={logoImage} alt="Logo" />- Chat
-        </span>
+      <h2>Welcome to
+        <Link to="/" className="logo-text" onClick={navigateToHome}>
+          <img src={logoImage} alt="Logo" />- CHAT
+        </Link>
       </h2>
       <div className="form-container">
         <label>Qemail:</label>
