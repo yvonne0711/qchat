@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AOS from "aos";
 import {
   auth,
@@ -20,6 +20,7 @@ const Registration = () => {
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [registrationMessage, setRegistrationMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleRegistration = async () => {
     try {
@@ -95,30 +96,36 @@ const Registration = () => {
     AOS.init({ duration: 1000 });
   }, []);
 
+  const navigateToHome = () => {
+    navigate("/");
+  };
+
   return (
     <div>
       <div className="registration-container" data-aos="fade-up">
         <h2>
           Register to{" "}
-          <span className="logo-text">
-            <img src={logoImage} alt="Logo" />- CHAT
+          <span className="logo-text" onClick={navigateToHome}>
+            <Link to="/">
+              <img src={logoImage} alt="Logo" />
+            </Link>- CHAT
           </span>
         </h2>
-        <label>Qemail:</label>
+        <label>Email:</label>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <label>Set Your Quassword:</label>
+        <label>Set Your Password:</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <label>Qickname:</label>
+        <label>Nickname:</label>
         <input
           type="text"
           value={displayName}
