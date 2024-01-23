@@ -111,21 +111,21 @@ const Registration = () => {
             </Link>- CHAT
           </span>
         </h2>
-        <label>Email:</label>
+        <label>Qemail:</label>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <label>Set Your Password:</label>
+        <label>Set Your Qassword:</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <label>Nickname:</label>
+        <label>Qickname:</label>
         <input
           type="text"
           value={displayName}
@@ -134,14 +134,14 @@ const Registration = () => {
 
         <button onClick={handleRegistration}>Register</button>
 
-        <button onClick={handleGoogleSignIn}>Register by Google</button>
+        <button onClick={handleGoogleSignIn}>Register with Google</button>
 
         {registrationMessage && <p>{registrationMessage}</p>}
 
         <p>
-          Already a user? Please{" "}
+          Already a user ? Please{" "}
           <Link to="/login" style={{ color: "#3dd276" }}>
-            log in
+            Log In
           </Link>
           .
         </p>
