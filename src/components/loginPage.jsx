@@ -6,7 +6,8 @@ import { useNavigate, Link } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "./loginPage.css";
-import logoImage from "../assets/logo.png";
+import CancelLogo from "../assets/Cancel.png";
+import LoginLogo from "../assets/LoginLogo.png"
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -59,11 +60,12 @@ const LoginPage = () => {
 
   return (
     <div className="login-container" data-aos="fade-up">
-      <h2>Welcome to
-        <Link to="/" className="logo-text" onClick={navigateToHome}>
-          <img src={logoImage} alt="Logo" />- CHAT
-        </Link>
-      </h2>
+      
+    <Link to="/" className="cancelLogo" onClick={navigateToHome}>
+    <img src={CancelLogo} alt="Cancel" className="cancelLogo" />
+    </Link>
+
+      <img src={LoginLogo} alt="Logo" className="Homelogo" />
       <div className="form-container">
         <label>Qemail:</label>
         <input

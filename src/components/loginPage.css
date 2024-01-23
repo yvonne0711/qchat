@@ -11,11 +11,14 @@ body {
   background-position: center;
   background-repeat: no-repeat;
 }
-
+.cancelLogo{width: 34px;
+  position: absolute;
+  top: -7px;
+  right: -6px;}
 .login-container {
   max-width: 400px;
   padding: 20px;
-  background-color: rgba(244, 244, 244, 0.9); 
+  background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
