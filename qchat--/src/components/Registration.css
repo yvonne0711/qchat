@@ -20,7 +20,7 @@ h1 {
 }
 
 .registration-container {
-  max-width: 60%; 
+  max-width: 80%; 
   width: 100%;
   padding: 5%;
   border-radius: 8px;
@@ -54,11 +54,11 @@ h1 {
 }
 
 .registration-container input:focus {
-  border-color: #4c7caf;
+  border-color: #720672;
 }
 
 .registration-container button {
-  background-color: #3dd276;
+  background-color: #4ac83e;
   color: #fff;
   padding: 15px;
   border: none;
@@ -70,7 +70,7 @@ h1 {
 }
 
 .registration-container button:hover {
-  background-color: #456ca0;
+  background-color: #720672;
 }
 
 .registration-container button:active {
