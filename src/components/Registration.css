@@ -8,7 +8,11 @@ body {
   align-items: center;
   height: 100vh;
 }
-
+.RegisterLogo{width: 350px;}
+.cancelLogo{width: 34px;
+  position: absolute;
+  top: -7px;
+  right: -6px;}
 h1 {
   text-align: center;
   color: #6a1b9a;
@@ -38,7 +42,16 @@ h1 {
   color: #333;
   margin: 20px;
 }
-
+.reg_login{ background-color: #4ac83e;
+  color: #fff;
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: calc(100% - 20px);
+  margin: 10px;
+  transition: background-color 0.3s ease-in-out;text-decoration: none;}
+  .reg_login:hover{ background-color: #720672;}
 .registration-container label {
   display: block;
   margin: 10px;

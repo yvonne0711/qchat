@@ -14,6 +14,8 @@ import axios from "axios";
 import "aos/dist/aos.css";
 import "./Registration.css";
 import logoImage from "../assets/logo.png";
+import CancelLogo from '../assets/Cancel.png';
+import RegisterLogo from '../assets/RegisterLogo.png';
 
 const Registration = () => {
   const [email, setEmail] = useState("");
@@ -103,14 +105,11 @@ const Registration = () => {
   return (
     <div>
       <div className="registration-container" data-aos="fade-up">
-        <h2>
-          Register to{" "}
-          <span className="logo-text" onClick={navigateToHome}>
-            <Link to="/">
-              <img src={logoImage} alt="Logo" />
-            </Link>- CHAT
-          </span>
-        </h2>
+   
+      <Link to="/" className="cancelLogo" onClick={navigateToHome}>
+    <img src={CancelLogo} alt="Cancel" className="cancelLogo" />
+    </Link>
+        <img src={RegisterLogo} alt="Logo" className="RegisterLogo" />
         <label>Qemail:</label>
         <input
           type="email"
@@ -140,7 +139,9 @@ const Registration = () => {
 
         <p>
           Already a user ? Please{" "}
-          <Link to="/login" style={{ color: "#3dd276" }}>
+          <br />
+      
+          <Link to="/login" className="reg_login">
             Log In
           </Link>
           .
