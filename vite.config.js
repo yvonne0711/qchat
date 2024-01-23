@@ -25,7 +25,7 @@ export default defineConfig({
     target: 'esnext', // Set the target to esnext
     polyfillDynamicImport: false, // Disable dynamic import polyfill
   },
-  esbuild: {
-    jsxInject: `import React from 'react';`, // Inject React import for JSX
-  },
+  // esbuild: {
+  //   jsxInject: `import React from 'react';`, // Inject React import for JSX
+  // },
 });
