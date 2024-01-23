@@ -1,6 +1,6 @@
-
 import React, { useState, useEffect } from "react";
-import AOS from 'aos';
+import { Link } from "react-router-dom";
+import AOS from "aos";
 import {
   auth,
   createUserWithEmailAndPassword,
@@ -10,7 +10,7 @@ import {
   collection,
   addDoc,
 } from "./firebase";
-import axios from 'axios'; 
+import axios from "axios";
 import "aos/dist/aos.css";
 import "./Registration.css";
 import logoImage from "../assets/logo.png";
@@ -23,29 +23,27 @@ const Registration = () => {
 
   const handleRegistration = async () => {
     try {
-      
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
 
-      
       await addDoc(collection(db, "users"), {
         uid: userCredential.user.uid,
         displayName: displayName,
       });
       await axios.post(
-        'https://api.chatengine.io/users/',
+        "https://api.chatengine.io/users/",
         {
-          username: email, 
+          username: email,
           secret: userCredential.user.uid,
           email: email,
         },
         {
           headers: {
-            'private-key': '4ee6af7f-2fd7-4c2c-be5e-f569ac48a478',
-            'project-id': '5f62edf9-dd50-4c2e-b35a-1dfee5ffcd44',
+            "private-key": "4ee6af7f-2fd7-4c2c-be5e-f569ac48a478",
+            "project-id": "5f62edf9-dd50-4c2e-b35a-1dfee5ffcd44",
           },
         }
       );
@@ -63,15 +61,13 @@ const Registration = () => {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
 
-      
       await addDoc(collection(db, "users"), {
         uid: user.uid,
         displayName: user.displayName,
       });
 
-      
       await axios.post(
-        'https://api.chatengine.io/users/',
+        "https://api.chatengine.io/users/",
         {
           username: user.email,
           secret: user.uid,
@@ -79,14 +75,16 @@ const Registration = () => {
         },
         {
           headers: {
-            'private-key': '4ee6af7f-2fd7-4c2c-be5e-f569ac48a478',
-            'project-id': '5f62edf9-dd50-4c2e-b35a-1dfee5ffcd44',
+            "private-key": "4ee6af7f-2fd7-4c2c-be5e-f569ac48a478",
+            "project-id": "5f62edf9-dd50-4c2e-b35a-1dfee5ffcd44",
           },
         }
       );
 
       console.log("Logged in with Google:", user);
-      setRegistrationMessage("Logged in with Google. Logged in successfully.");
+      setRegistrationMessage(
+        "Logged in with Google. Logged in successfully."
+      );
     } catch (error) {
       console.error("Google login error:", error.message);
       setRegistrationMessage(`Google login error: ${error.message}`);
@@ -100,8 +98,13 @@ const Registration = () => {
   return (
     <div>
       <div className="registration-container" data-aos="fade-up">
-      <h2>Register to <span className="logo-text"><img src={logoImage} alt="Logo" />- Chat</span></h2>
-        <label>Email:</label>
+        <h2>
+          Register to{" "}
+          <span className="logo-text">
+            <img src={logoImage} alt="Logo" />- CHAT
+          </span>
+        </h2>
+        <label>Qemail:</label>
         <input
           type="email"
           value={email}
@@ -127,6 +130,14 @@ const Registration = () => {
         <button onClick={handleGoogleSignIn}>Register by Google</button>
 
         {registrationMessage && <p>{registrationMessage}</p>}
+
+        <p>
+          Already a user? Please{" "}
+          <Link to="/login" style={{ color: "#3dd276" }}>
+            log in
+          </Link>
+          .
+        </p>
       </div>
     </div>
   );

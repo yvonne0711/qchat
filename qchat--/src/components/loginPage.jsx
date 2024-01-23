@@ -1,4 +1,3 @@
-
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from "react";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
@@ -7,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "./LoginPage.css";
-import logoImage from "../assets/logo.png"; 
+import logoImage from "../assets/logo.png";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -31,7 +30,7 @@ const LoginPage = () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-      
+
       await addDoc(collection(db, "users"), {
         uid: user.uid,
         displayName: user.displayName,
@@ -46,13 +45,22 @@ const LoginPage = () => {
     }
   };
 
+  const navigateToRegistration = () => {
+    navigate("/registration");
+  };
+
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
 
   return (
     <div className="login-container" data-aos="fade-up">
-      <h2>Login to <span className="logo-text"><img src={logoImage} alt="Logo" />- Chat</span></h2>
+      <h2>
+        Login to{" "}
+        <span className="logo-text">
+          <img src={logoImage} alt="Logo" />- Chat
+        </span>
+      </h2>
       <div className="form-container">
         <label>Email:</label>
         <input
@@ -61,7 +69,7 @@ const LoginPage = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <label>Your Qassword:</label>
+        <label>Your Password:</label>
         <input
           type="password"
           value={password}
@@ -70,6 +78,14 @@ const LoginPage = () => {
 
         <button onClick={handleLogin}>Login</button>
         <button onClick={handleGoogleSignIn}>Login with Google</button>
+
+        <p>
+          Not a user?{" "}
+          <br />
+          <button className="register-button" onClick={navigateToRegistration}>
+            Register Here
+          </button>
+        </p>
       </div>
       {loginMessage && <p className="login-message">{loginMessage}</p>}
     </div>
