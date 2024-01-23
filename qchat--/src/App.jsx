@@ -12,7 +12,7 @@ const App = () => {
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<HomePage />} /> {/* Set HomePage as the default route */}
+          <Route path="/" element={<HomePage />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/chats" element={<Chats />} />
           <Route path="/login" element={<LoginPage />} />
