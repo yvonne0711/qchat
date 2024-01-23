@@ -5,7 +5,7 @@ import { googleProvider, auth, db, collection, addDoc } from "./firebase";
 import { useNavigate, Link } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import "./LoginPage.css";
+import "./loginPage.css";
 import logoImage from "../assets/logo.png";
 
 const LoginPage = () => {
