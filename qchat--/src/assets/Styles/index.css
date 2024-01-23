@@ -24,7 +24,7 @@ body {
 }
 
 .Chat_Navbar {
-  background-color: #222;
+  background-color: #1a1319;
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -36,7 +36,7 @@ body {
 .Logo_tab {
   font-size: 24px;
   font-weight: 700;
-  text-shadow: 0 0 30px rgba(188, 18, 149, 0.8);
+  text-shadow: 0 0 30px rgba(188, 18, 149, 1);
   color: #fff;
 }
 
@@ -45,7 +45,7 @@ body {
   text-shadow: 0 0 10px rgba(23, 36, 59, 0.8);
   font-size: 24px;
   font-weight: 700;
-  text-shadow: 0 0 20px rgba(132, 5, 130, 1);
+  text-shadow: 0 0 20px rgba(132, 5, 130,1);
   color: #fff;
 }
 
