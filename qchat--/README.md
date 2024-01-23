@@ -55,9 +55,6 @@ To configure Firebase, create a project on the [Firebase Console](https://consol
 - [Firebase Documentation](https://firebase.google.com/docs)
 - [ChatEngine Documentation](https://www.chatengine.io/docs/)
 
-## Author
-
-Q-Chat was created by [Your Name/Nickname].
 
 ## License
 
@@ -71,7 +68,7 @@ This project is available under the [MIT License](LICENSE).
 
 ## Live Demo
 
-## Contributors
+## Contributors and Authors
 
 - [@bakomans](https://github.com/bakomans)
 - [@yvonne0711](https://github.com/yvonne0711)
