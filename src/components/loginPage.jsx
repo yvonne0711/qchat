@@ -67,14 +67,14 @@ const LoginPage = () => {
 
       <img src={LoginLogo} alt="Logo" className="Homelogo" />
       <div className="form-container">
-        <label>Qemail:</label>
+        <label>User Email:</label>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <label>Your Qassword:</label>
+        <label>User Password:</label>
         <input
           type="password"
           value={password}
@@ -86,7 +86,7 @@ const LoginPage = () => {
 
         <p>
           Not a user?{" "}
-          <br />
+          <br /><br />
           <button className="register-button" onClick={navigateToRegistration}>
             Register Here
           </button>
