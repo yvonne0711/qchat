@@ -58,6 +58,38 @@ const Registration = () => {
       setRegistrationMessage(`Registration error: ${error.message}`);
     }
   };
+  const handleRegistration1 = async () => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      await addDoc(collection(db, 'users'), {
+        uid: user.uid,
+        displayName,
+      });
+
+      await axios.post(
+        'https://api.chatengine.io/users/',
+        {
+          username: email,
+          secret: user.uid,
+          email: email,
+        },
+        {
+          headers: {
+            'Private-Key': '4ee6af7f-2fd7-4c2c-be5e-f569ac48a478',
+            'Project-ID': '5f62edf9-dd50-4c2e-b35a-1dfee5ffcd44',
+          },
+        }
+      );
+
+      setRegistrationMessage('Registration successful. You are now logged in.');
+      navigate('/'); // Navigate to the chat page
+    } catch (error) {
+      console.error('Registration error:', error);
+      setRegistrationMessage(`Registration error: ${error.message}`);
+    }
+  };
 
   const handleGoogleSignIn = async () => {
     try {
@@ -110,28 +142,28 @@ const Registration = () => {
     <img src={CancelLogo} alt="Cancel" className="cancelLogo" />
     </Link>
         <img src={RegisterLogo} alt="Logo" className="RegisterLogo" />
-        <label>Qemail:</label>
+        <label>User Email:</label>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <label>Set Your Qassword:</label>
+        <label>Set Your Password:</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <label>Qickname:</label>
+        <label>NickName:</label>
         <input
           type="text"
           value={displayName}
           onChange={(e) => setDisplayName(e.target.value)}
         />
 
-        <button onClick={handleRegistration}>Register</button>
+        <button onClick={handleRegistration1}>Register</button>
 
         <button onClick={handleGoogleSignIn}>Register with Google</button>
 
@@ -139,6 +171,7 @@ const Registration = () => {
 
         <p>
           Already a user ? Please{" "}
+          <br />
           <br />
       
           <Link to="/login" className="reg_login">
